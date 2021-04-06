@@ -1,6 +1,6 @@
 public class GameEngine {
 
-    //init player dan ruangan (masih satu ruangan)
+    //init player dan ruangan
     Player objPlayer = new Player("Player","Orang yang baru tersadar di ruangan yg tidak dikenal");
     Ruangan objRuangan = new Ruangan("Ruangan 1","Ruangan dengan satu pintu dan satu jendela");
 
@@ -10,7 +10,7 @@ public class GameEngine {
         GameInfo.objRuangan = objRuangan;
         GameInfo.isGameOver = false;
 
-        //tambahkan player ke ruangan dan satu objek
+        //tambahkan player ke ruangan
         objRuangan.tambahElemen(objPlayer);
 
     }

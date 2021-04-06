@@ -3,10 +3,11 @@ import java.util.ArrayList;
 public class NPC extends ElemenGame{
 
     private boolean isBerkenalan=false;
+
     public NPC(String nama, String deskripsi) {
         super(nama, deskripsi);
         ItemAmbil kunci = new ItemAmbil("Kunci","Kunci kecil berkarat",this);
-        kunci.setBisaDiambil(false); //hilangkan menu ambil
+        kunci.setBisaDiambil(false); //hilangkan  ambil dari kunci
         tambahElemen(kunci);
     }
 

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+/* class inti, semua elemen game yang bisa punya aksi harus diturunkan dari class ini */
 
 public class ElemenGame {
     private Scanner sc = new Scanner(System.in);
@@ -7,15 +8,12 @@ public class ElemenGame {
     private String deskripsi;
     private String nama;
 
-    private int cc;
+    private int cc;  //internal untuk UI
     private ArrayList<ElemenGame> arrElemenGame = new ArrayList<>();  //bisa compound, punya item lagi
-    
-
     private ArrayList<Aksi> arrAksi = new ArrayList<>(); //daftar aksi keseluruhan
 
 
-    //menampilkan secara rekursif, karena item bisa punya punya subitem lalu punya subitem lagi dst
-
+    //UI: menampilkan aksi secara rekursif, karena item bisa punya punya subitem lalu punya subitem lagi dst
     private void tampilkanAksi (ElemenGame objElemenGame) {
         //aksi internal
         System.out.println(objElemenGame.getNama());
@@ -24,19 +22,19 @@ public class ElemenGame {
             System.out.printf("%d. %s \n",cc,ak.getNamaAksi());
             cc++;
         }
-        //aksi milik item/obj yang dimilik
+        //aksi milik item/obj yang dimiliki (subitem)
         if (objElemenGame.arrElemenGame.size() > 0) {
                 System.out.printf("%s memiliki: \n",objElemenGame.nama);
                 for (ElemenGame eg : objElemenGame.arrElemenGame) {
-                        tampilkanAksi(eg); //rekursif
+                        tampilkanAksi(eg); //rekursif, karena setiap subitem bisa punya itemlagi
                 }
 
         }
 
     }
 
+    //UI: tampilkan pilihan
     public void pilihanAksi() {
-        // UI pilihan aksi
         System.out.println("===============");
         System.out.println("Pilihan aksi:");
 
@@ -46,24 +44,14 @@ public class ElemenGame {
 
         System.out.print("Pilihan aksi:");
         int pil = sc.nextInt();
+
         //eksekusi, polymorphism berguna disini
         System.out.println("===============");
         arrAksi.get(pil-1).eksekusiAksi();
 
     }
 
-    public void hapusElemen(ElemenGame eg) {
-        //hapus elemen pada arrElemenGame
-        arrElemenGame.remove(eg);
-    }
 
-    public void tambahElemen(ElemenGame eg) {
-        arrElemenGame.add(eg);
-    }
-
-    public String getNama() {
-        return nama;
-    }
 
     //constrcutor
     public ElemenGame(String nama,String deskripsi) {
@@ -71,22 +59,24 @@ public class ElemenGame {
         this.nama = nama;
     }
 
-    public ArrayList<Aksi> getArrAksi() {
     //output: arrayList aksi objek ini (digunakan oleh UI).
     //bisa dimanfaatkan untuk membuat aksi yang dinamik
+    //ini akan dioverride class turunan
+    public ArrayList<Aksi> getArrAksi() {
         ArrayList<Aksi> arrAksi = new ArrayList<>();
-        arrAksi.add(new Aksi("Deskripsikan",101,this));
+        arrAksi.add(new Aksi("Deskripsikan",101,this)); //aksi standard untuk semua elemen
         return arrAksi;
     }
 
+    //eksekusi berdasarkan id
+    //ini akan dioverride oleh class turunan
     public void aksi(int idAksi) {
-        //eksekusi berdasarkan id
         if (idAksi==101) {
             System.out.printf("Deskripsi: %s \n",deskripsi);
         }
     }
 
-    //cari item yang dimiliki, return elemennya  jika ada, jika tdk ada null
+    //cari item yang dimiliki berdasarkan nama, return objek elemennya  jika ada, jika tdk ada null
     public ElemenGame cariItem(String namaElemen) {
         for (ElemenGame eg:arrElemenGame) {
             if (namaElemen.equals(eg.getNama())) {
@@ -95,5 +85,20 @@ public class ElemenGame {
         }
         return(null); //tidak ketemu
     }
+
+    //hapus elemen pada arrElemenGame
+    public void hapusElemen(ElemenGame eg) {
+        arrElemenGame.remove(eg);
+    }
+
+    //tambah elemen pada arrElemenGame
+    public void tambahElemen(ElemenGame eg) {
+        arrElemenGame.add(eg);
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
 
 }

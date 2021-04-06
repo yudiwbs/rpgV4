@@ -6,7 +6,6 @@ public class Ruangan extends ElemenGame{
         super(nama, deskripsi);
 
         //contoh polymorhpish, bisa banyak jenis class yang masuk, Pintu, ItemAmbil,NPC dan yg lain nanti
-
         tambahElemen(new Pintu("Pintu","Pintu dengan tulisan exit"));
         tambahElemen(new ItemAmbil("Roti","Roti coklat kecil",this));
         tambahElemen(new NPC("NPC Penjaga","Penjaga pintu"));
@@ -17,7 +16,6 @@ public class Ruangan extends ElemenGame{
         ArrayList<Aksi> arrOut  = super.getArrAksi(); //ambil aksi default parent2
         
         //tambahkan aksi ambil atau dibuang tergantung dari owner
-        //arrOut.add(new Aksi("Buang",201,this));
         arrOut.add(new Aksi("Keluar Game",301,this));
         return arrOut;
     }

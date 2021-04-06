@@ -8,7 +8,6 @@ public class Player extends  ElemenGame {
         super(nama, deskripsi);
     }
 
-
     private void tampilkanStatus() {
         System.out.printf("Kesehatan player: %s  \n",kesehatan);
     }

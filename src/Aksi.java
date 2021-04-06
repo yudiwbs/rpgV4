@@ -1,7 +1,8 @@
 public class Aksi {
+
     private String namaAksi; //misal "Ambil item".
     private int idAksi;
-    private ElemenGame objAksi;  //polymorphism
+    private ElemenGame objAksi;  // objek yg akan mengekseskusi aksi
 
     public String getNamaAksi() {
         return namaAksi;

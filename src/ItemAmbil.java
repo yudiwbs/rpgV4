@@ -3,24 +3,12 @@ import java.util.ArrayList;
 /*
       Item yang bisa diambil atau dibuang oleh player
  */
-
 public class ItemAmbil extends ElemenGame {
 
     private boolean isBisaDiambil = true; //false misalnya objek dipegang npc yang tidak boleh diambil langsung
     private ElemenGame owner; //siapa pemilik item
 
-
-
-    //constructor tambahan, perhatikan pemanggilan super untuk panggil construtor default
-    public ItemAmbil(String nama, String deskripsi, ElemenGame owner) {
-        super(nama, deskripsi);
-        this.owner = owner;
-    }
-
-    public ItemAmbil(String nama, String deskripsi) {
-        super(nama, deskripsi);
-    }
-
+    //objek dibuang dari player ke ruangan
     private void dibuang() {
         owner = GameInfo.objRuangan;
         System.out.println("Item dibuang");
@@ -28,6 +16,7 @@ public class ItemAmbil extends ElemenGame {
         GameInfo.objRuangan.tambahElemen(this);  //tambahkan ke ruangan5
     }
 
+    //objek diambil dari ruangan ke player
     private void diambil() {
         //pindahkan dari owner ke player
         // todo: diambil bisa saja dilakukan oleh npc nanti
@@ -42,9 +31,8 @@ public class ItemAmbil extends ElemenGame {
     public ArrayList<Aksi> getArrAksi() {
         ArrayList<Aksi> arrOut  = super.getArrAksi(); //ambil aksi default
         //tambahkan aksi ambil atau dibuang tergantung dari owner
-
         if (isBisaDiambil) {
-            if (owner == GameInfo.objPlayer) {  //sedang dipegang player
+            if (owner == GameInfo.objPlayer) {  //sedang dipegang player, buang
                 arrOut.add(new Aksi("Buang", 202, this));
             } else {
                 arrOut.add(new Aksi("Ambil", 201, this));
@@ -80,5 +68,16 @@ public class ItemAmbil extends ElemenGame {
     public void setBisaDiambil(boolean bisaDiambil) {
         isBisaDiambil = bisaDiambil;
     }
+
+    //constructor tambahan, perhatikan pemanggilan super untuk panggil construtor default
+    public ItemAmbil(String nama, String deskripsi, ElemenGame owner) {
+        super(nama, deskripsi);
+        this.owner = owner;
+    }
+
+    public ItemAmbil(String nama, String deskripsi) {
+        super(nama, deskripsi);
+    }
+
 
 }
